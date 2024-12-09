@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voter Information</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="voting-container">
+        <h2>Enter Your Details</h2>
+        <form onsubmit="return checkEligibility()" action="votePage.html">
+            <label for="name">Name</label>
+            <input type="text" id="name" required>
+            <label for="aadhar">Aadhar Number</label>
+            <input type="text" id="aadhar" required>
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required>
+            <button type="submit">Proceed to Vote</button>
+        </form>
+    </div>
+    <script>
+        function checkEligibility() {
+            const dob = new Date(document.getElementById('dob').value);
+            const today = new Date();
+            const age = today.getFullYear() - dob.getFullYear();
+
+            if (age >= 18) {
+                return true;
+            } else {
+                alert("Sorry, you are not eligible to vote.");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

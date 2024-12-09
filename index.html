@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body { background-color: lightblue; text-align: center; padding-top: 50px; }
+        input[type="text"], input[type="password"] { padding: 10px; margin: 10px; width: 200px; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Voting System</h1>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Enter Username" required><br>
+        <input type="password" id="password" placeholder="Enter Password" required><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        // Simulate a basic login system
+        document.getElementById("loginForm").onsubmit = function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Validate user credentials (hardcoded for simplicity)
+            if (username === "nandini" && password === "nandini@") {
+                localStorage.setItem("loggedIn", true);  // Store login state
+                window.location.href = "votingEligibility.html";  // Redirect to eligibility check
+            } else {
+                alert("Invalid credentials, please try again.");
+            }
+        };
+    </script>
+</body>
+</html>

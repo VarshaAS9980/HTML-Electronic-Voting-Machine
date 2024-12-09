@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for Your Candidate</title>
+    <style>
+        body { background-color: lightblue; text-align: center; padding-top: 50px; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 20px; }
+    </style>
+    <script>
+        function voteForCandidate(candidateName) {
+            // Retrieve the vote counts from localStorage
+            let voteCounts = JSON.parse(localStorage.getItem("voteCounts") || '{}');
+            
+            // Increment the vote count for the selected candidate
+            voteCounts[candidateName] = (voteCounts[candidateName] || 0) + 1;
+            
+            // Save the updated vote counts to localStorage
+            localStorage.setItem("voteCounts", JSON.stringify(voteCounts));
+            
+            alert("Your vote has been recorded!");
+            window.location.href = "view_results.html";  // Redirect to results page
+        }
+        
+        // Ensure the user is logged in
+        window.onload = function() {
+            if (!localStorage.getItem("loggedIn")) {
+                window.location.href = "index.html";  // Redirect to login if not logged in
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Vote for Your Favorite Candidate</h1>
+    <button onclick="voteForCandidate('Alice')">BJP</button>
+    <button onclick="voteForCandidate('Bob')">JDS</button>
+    <button onclick="voteForCandidate('Charlie')">Congress</button>
+</body>
+</html>

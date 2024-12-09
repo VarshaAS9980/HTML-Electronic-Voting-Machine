@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Results</title>
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            background-color: white;
+            margin: 50px auto;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+        }
+        canvas {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .back-button {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Voting Results</h1>
+        <div id="errorMessage"></div>
+        <canvas id="voteChart"></canvas>
+        <div class="back-button">
+            <button onclick="goBack()">Back to Login</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Simulated data of votes (can be stored in localStorage or a database in real applications)
+        const voteData = {
+            candidate1: 100,
+            candidate2: 200,
+            candidate3: 50,
+        };
+
+        // Check if the current user is authorized to view the results (admin access)
+        function checkAuthorization() {
+            // You can use sessionStorage or localStorage to check if the user has logged in successfully
+            const userID = prompt("Please enter your Admin ID");
+            const password = prompt("Please enter your password");
+
+            if (userID === "Nandini" && password === "Nandini@123") {
+                // Authorized user: display the results
+                displayResults();
+            } else {
+                // Unauthorized user: show an error message and redirect to login
+                document.getElementById("errorMessage").innerText = "Sorry, you are not authorized to access the results.";
+                setTimeout(function() {
+                    window.location.href = "index.html";  // Redirect to the login page after 3 seconds
+                }, 3000);
+            }
+        }
+
+        // Display voting results and pie chart
+        function displayResults() {
+            const ctx = document.getElementById("voteChart").getContext("2d");
+            const voteChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Candidate 1', 'Candidate 2', 'Candidate 3'],
+                    datasets: [{
+                        label: 'Vote Distribution',
+                        data: [voteData.candidate1, voteData.candidate2, voteData.candidate3],
+                        backgroundColor: ['#FF5733', '#33FF57', '#3357FF'],
+                        borderColor: ['#fff', '#fff', '#fff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    }
+                }
+            });
+        }
+
+        // Go back to the login page
+        function goBack() {
+            window.location.href = "index.html";
+        }
+
+        // Check authorization as soon as the page loads
+        checkAuthorization();
+    </script>
+</body>
+</html>
